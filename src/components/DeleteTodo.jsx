@@ -1,11 +1,14 @@
 import React from "react";
+import { deleteTodo } from "../redux/actions/action";
 
 import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-//import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+
 function DeleteTodo({ todo }) {
-  //   const appState = useSelector((state) => state);
+  const dispatch = useDispatch();
   function handleDelete(id) {
+    dispatch(deleteTodo(id));
     console.log(id, "DELETE TODO");
   }
   return (

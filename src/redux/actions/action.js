@@ -4,3 +4,10 @@ export const createTodo = (values) => {
     payload: { id: Math.round(Math.random() * 50), ...values },
   };
 };
+
+export const deleteTodo = (id) => {
+  return {
+    type: "DELETE TODO",
+    payload: id,
+  };
+};
