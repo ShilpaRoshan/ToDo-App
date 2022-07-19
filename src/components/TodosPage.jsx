@@ -57,7 +57,7 @@ function TodosPage() {
                     </React.Fragment>
                   }
                 />
-                <EditTodo />
+                <EditTodo todo={todo} />
                 <DeleteTodo todo={todo} />
               </ListItem>
             ))}

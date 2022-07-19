@@ -11,3 +11,9 @@ export const deleteTodo = (id) => {
     payload: id,
   };
 };
+export const updateTodo = (formData) => {
+  return {
+    type: "UPDATE TODO",
+    payload: formData,
+  };
+};

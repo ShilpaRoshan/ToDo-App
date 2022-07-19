@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { createTodo } from "../redux/actions/action";
+import moment from "moment";
 
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -22,8 +23,13 @@ export default function AddTodo() {
     description: Yup.string()
       .max(1024, "Cannot exceed than 1024 characters")
       .required("Required"),
-    createdDate: Yup.date().required("Enter the Date"),
+    createdDate: Yup.date()
+      .transform((value) => {
+        return value ? moment(value).toDate() : value;
+      })
+      .required("Enter the Date"),
   });
+  console.log(validationSchema, "ADD TODO");
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -33,6 +39,7 @@ export default function AddTodo() {
   const handleClose = () => {
     console.log("FROM CREATE BUTTON");
     setOpen(false);
+    console.log(open, "ADD");
   };
   const onSubmit = (values, props) => {
     dispatch(createTodo(values));
@@ -56,7 +63,7 @@ export default function AddTodo() {
             We will send updates occasionally.
           </DialogContentText>
           <Formik
-            initialValues={{ title: "", description: "", createdDate: null }}
+            initialValues={{ title: "", description: "", createdDate: "" }}
             validationSchema={validationSchema}
             onSubmit={onSubmit}
           >
@@ -97,7 +104,7 @@ export default function AddTodo() {
                   label="Created date"
                   fullWidth
                   variant="standard"
-                  value={props.values.createdDate.toString()}
+                  value={props.values.createdDate}
                   onChange={props.handleChange}
                   InputLabelProps={{ shrink: true }}
                   helperText={<ErrorMessage name="createdDate" />}
