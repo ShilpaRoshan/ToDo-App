@@ -23,6 +23,7 @@ const reducer = (state = initalState, action) => {
       return {
         todos: [...state.todos, action.payload],
       };
+
     case "DELETE TODO":
       const todoID = action.payload;
       const newTodoList = state.todos.filter((todo) => todo.id !== todoID);

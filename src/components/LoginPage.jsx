@@ -41,7 +41,6 @@ function LoginPage() {
       .then(async (response) => {
         const user = response.user;
         await updateProfile(user, { displayName: values.username });
-        console.log(user, "USER ONSUBMIT");
         navigate("/todos");
       })
       .catch((err) => alert(err.message));

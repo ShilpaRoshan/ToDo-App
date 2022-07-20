@@ -24,12 +24,12 @@ export default function AddTodo() {
       .max(1024, "Cannot exceed than 1024 characters")
       .required("Required"),
     createdDate: Yup.date()
+      .required("Required")
       .transform((value) => {
         return value ? moment(value).toDate() : value;
       })
       .required("Enter the Date"),
   });
-  console.log(validationSchema, "ADD TODO");
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -37,13 +37,10 @@ export default function AddTodo() {
   };
 
   const handleClose = () => {
-    console.log("FROM CREATE BUTTON");
     setOpen(false);
-    console.log(open, "ADD");
   };
   const onSubmit = (values, props) => {
     dispatch(createTodo(values));
-    console.log(values, "onSubmit");
     setTimeout(() => {
       props.resetForm();
       props.setSubmitting(false);
@@ -96,7 +93,6 @@ export default function AddTodo() {
                 />
                 <Field
                   as={TextField}
-                  autoFocus
                   margin="dense"
                   id="name"
                   name="createdDate"

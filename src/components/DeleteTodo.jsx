@@ -9,7 +9,6 @@ function DeleteTodo({ todo }) {
   const dispatch = useDispatch();
   function handleDelete(id) {
     dispatch(deleteTodo(id));
-    console.log(id, "DELETE TODO");
   }
   return (
     <>
