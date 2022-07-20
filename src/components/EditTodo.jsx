@@ -42,13 +42,7 @@ function EditTodo({ todo }) {
   };
 
   console.log(updateFormData);
-  //   useEffect(
-  //     (updateFormData) => {
-  //       if (todo) {
-  //       }
-  //     },
-  //     [updateFormData]
-  //   );
+  useEffect(() => {}, []);
 
   const handleClose = () => {
     setOpen(false);
@@ -60,6 +54,7 @@ function EditTodo({ todo }) {
 
   const onSubmit = (values, props) => {
     dispatch(updateTodo(updateFormData));
+    console.log(updateFormData, "ONSUBMIT BUTTON");
     console.log(values, "onSubmit");
     setTimeout(() => {
       props.resetForm();
