@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { auth } from "../firebase";
+import { auth } from "../../firebase";
 import { signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import {
@@ -21,7 +21,6 @@ function LoginPage() {
   React.useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
-        console.log(user, "USEEFFECT");
         navigate("/todos");
       }
     });
@@ -81,7 +80,6 @@ function LoginPage() {
                 value={props.values.username}
                 helperText={<ErrorMessage name="username" />}
               />
-              {/* {console.log(props, "inside form")} */}
               <Field
                 as={TextField}
                 label="Email"

@@ -1,5 +1,5 @@
 import React from "react";
-import { deleteTodo } from "../redux/actions/action";
+import { deleteTodo } from "../redux/actions/todoAction";
 
 import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";

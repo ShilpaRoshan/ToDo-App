@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import SignOut from "./SignOut";
+import SignOut from "../SignOut";
 import {
   Box,
   Paper,
@@ -12,20 +12,35 @@ import {
   Chip,
 } from "@mui/material";
 
-import AddTodo from "./AddTodo";
-import EditTodo from "./EditTodo";
-import DeleteTodo from "./DeleteTodo";
+import AddTodo from "../AddTodo";
+import EditTodo from "../EditTodo";
+import DeleteTodo from "../DeleteTodo";
 
 function TodosPage() {
   const todos = useSelector((state) => state.todos);
   return (
     <>
-      <h2>Todo-App</h2>
-      <AddTodo />
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <h2>Todo-App</h2>
+        <AddTodo />
+      </Box>
+
       <Box>
         <Paper
           elevation={10}
-          sx={{ padding: 10, height: "50vh", width: 1000, margin: "30px auto" }}
+          sx={{
+            padding: 10,
+            height: "50vh",
+            width: "80vw",
+            margin: "30px auto",
+          }}
         >
           <List sx={{ width: "100%", bgcolor: "background.paper" }}>
             {todos.map((todo) => (
@@ -64,7 +79,6 @@ function TodosPage() {
           </List>
         </Paper>
       </Box>
-
       <SignOut />
     </>
   );

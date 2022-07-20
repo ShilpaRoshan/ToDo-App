@@ -19,8 +19,8 @@ const initalState = {
 const reducer = (state = initalState, action) => {
   switch (action.type) {
     case "ADD TODO":
-      console.log(action.payload, "REDUCER");
       return {
+        ...state,
         todos: [...state.todos, action.payload],
       };
 
@@ -28,12 +28,13 @@ const reducer = (state = initalState, action) => {
       const todoID = action.payload;
       const newTodoList = state.todos.filter((todo) => todo.id !== todoID);
       return {
+        ...state,
         todos: newTodoList,
       };
     case "UPDATE TODO":
       const payloadId = action.payload.id;
-      console.log(payloadId, "UPDATE");
       return {
+        ...state,
         todos: state.todos.map((todo) => {
           if (todo.id === payloadId) {
             return action.payload;

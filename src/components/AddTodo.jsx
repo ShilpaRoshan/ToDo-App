@@ -2,7 +2,7 @@ import * as React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
-import { createTodo } from "../redux/actions/action";
+import { createTodo } from "../redux/actions/todoAction";
 import moment from "moment";
 
 import Button from "@mui/material/Button";
@@ -23,7 +23,7 @@ export default function AddTodo() {
     description: Yup.string()
       .max(1024, "Cannot exceed than 1024 characters")
       .required("Required"),
-    createdDate: Yup.date()
+    createdAt: Yup.date()
       .required("Required")
       .transform((value) => {
         return value ? moment(value).toDate() : value;
@@ -60,7 +60,7 @@ export default function AddTodo() {
             We will send updates occasionally.
           </DialogContentText>
           <Formik
-            initialValues={{ title: "", description: "", createdDate: "" }}
+            initialValues={{ title: "", description: "", createdAt: "" }}
             validationSchema={validationSchema}
             onSubmit={onSubmit}
           >
@@ -95,15 +95,15 @@ export default function AddTodo() {
                   as={TextField}
                   margin="dense"
                   id="name"
-                  name="createdDate"
+                  name="createdAt"
                   type="date"
                   label="Created date"
                   fullWidth
                   variant="standard"
-                  value={props.values.createdDate}
+                  value={props.values.createdAt}
                   onChange={props.handleChange}
                   InputLabelProps={{ shrink: true }}
-                  helperText={<ErrorMessage name="createdDate" />}
+                  helperText={<ErrorMessage name="createdAt" />}
                 />
                 <DialogActions>
                   <Button onClick={handleClose}>Cancel</Button>

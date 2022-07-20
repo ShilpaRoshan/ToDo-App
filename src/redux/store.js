@@ -4,7 +4,7 @@ import {
   compose,
 } from "redux";
 import thunk from "redux-thunk";
-import reducer from "./reducers/reducer";
+import reducer from "./reducers/todoReducer";
 
 const middelwares = [thunk];
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useDispatch, useSelector } from "react-redux";
-import { updateTodo } from "../redux/actions/action";
+import { useDispatch } from "react-redux";
+import { updateTodo } from "../redux/actions/todoAction";
 
 import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
@@ -17,10 +17,6 @@ import TextareaAutosize from "@mui/material/TextareaAutosize";
 
 function EditTodo({ todo }) {
   const dispatch = useDispatch();
-  const [updateFormData, setUpdateFormData] = useState(null);
-  const appState = useSelector((state) => state);
-  const { todos } = appState;
-  console.log(todos, "EDIT TODO APPSTATE");
   const [open, setOpen] = React.useState(false);
 
   const validationSchema = Yup.object().shape({
@@ -30,32 +26,16 @@ function EditTodo({ todo }) {
     description: Yup.string()
       .max(1024, "Cannot exceed than 1024 characters")
       .required("Required"),
-    createdDate: Yup.date().required("Enter the Date"),
+    createdAt: Yup.date(),
   });
-  // useEffect((todo)=>{
-
-  // },[])
-  const handleClickOpen = (id) => {
-    const newValue = todos?.find((state) => state.id === id);
-    setUpdateFormData(newValue);
+  const handleClickOpen = () => {
     setOpen(true);
   };
-
-  console.log(updateFormData);
-  useEffect(() => {}, []);
-
   const handleClose = () => {
     setOpen(false);
-    console.log(open);
   };
-  //   function handleEdit(todo) {
-  //     console.log(todo, "update");
-  //   }
-
-  const onSubmit = (values, props) => {
-    dispatch(updateTodo(updateFormData));
-    console.log(updateFormData, "ONSUBMIT BUTTON");
-    console.log(values, "onSubmit");
+  const onSubmitHandler = (values, props) => {
+    dispatch(updateTodo({ ...values, id: todo.id }));
     setTimeout(() => {
       props.resetForm();
       props.setSubmitting(false);
@@ -89,16 +69,16 @@ function EditTodo({ todo }) {
           </DialogContentText>
           <Formik
             initialValues={{
-              title: "",
-              description: "",
-              createdDate: "",
+              title: todo.title,
+              description: todo.description,
+              createdAt: todo.createdAt,
               isDone: false,
             }}
             validationSchema={validationSchema}
-            onSubmit={onSubmit}
+            onSubmit={onSubmitHandler}
           >
             {(props) => (
-              <Form>
+              <Form onSubmit={props.handleSubmit}>
                 <Field
                   as={TextField}
                   autoFocus
@@ -108,11 +88,6 @@ function EditTodo({ todo }) {
                   label="Title"
                   fullWidth
                   variant="standard"
-                  value={
-                    updateFormData.title
-                      ? updateFormData.title
-                      : props.values.title
-                  }
                   onChange={props.handleChange}
                   helperText={<ErrorMessage name="title" />}
                 />
@@ -123,11 +98,6 @@ function EditTodo({ todo }) {
                   name="description"
                   minRows={3}
                   placeholder="Minimum 1024 characters"
-                  value={
-                    updateFormData.description
-                      ? updateFormData.description
-                      : props.values.description
-                  }
                   onChange={props.handleChange}
                   style={{ width: 200 }}
                   helperText={<ErrorMessage name="description" />}
@@ -137,36 +107,19 @@ function EditTodo({ todo }) {
                   autoFocus
                   margin="dense"
                   id="name"
-                  name="createdDate"
+                  name="createdAt"
                   type="date"
                   label="Created date"
                   fullWidth
                   variant="standard"
-                  value={
-                    updateFormData.createdDate
-                      ? updateFormData.createdDate
-                      : props.values.createdDate
-                  }
                   onChange={props.handleChange}
                   InputLabelProps={{ shrink: true }}
-                  helperText={<ErrorMessage name="createdDate" />}
+                  helperText={<ErrorMessage name="createdAt" />}
                 />
-                {/* <Field
-                  type={Checkbox}
-                  name="isDone"
-                  label="Completed"
-                  //   checked={checked}
-                  //   onChange={handleChange}
-                  inputProps={{ "aria-label": "controlled" }}
-                /> */}
-                {/* <Field
-                  as={Checkbox}
-                  name="isDone"
-                  label="Pending"
-                  //   checked={checked}
-                  //   onChange={handleChange}
-                  inputProps={{ "aria-label": "controlled" }}
-                /> */}
+                <label>
+                  <Field type="checkbox" name="isDone" />
+                  {`${props.values.isDone}`}
+                </label>
 
                 <DialogActions>
                   <Button onClick={handleClose}>Cancel</Button>

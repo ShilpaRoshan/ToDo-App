@@ -1,14 +1,14 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LoginPage from "./components/LoginPage";
-import TodosPage from "./components/TodosPage";
+import LoginPage from "./components/pages/LoginPage";
+import TodosPage from "./components/pages/TodosPage";
 
-function App({ props }) {
+function App() {
   return (
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/" element={<LoginPage name={props.userName} />} />
+          <Route path="/" element={<LoginPage />} />
           <Route path="/todos" element={<TodosPage />} />
         </Routes>
       </div>
